@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartMole's - Geleceğin Turizmini Yeşertiyoruz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .luxury-gradient {
+            background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 100%);
+        }
+
+        .text-gold {
+            color: #d4af37;
+        }
+
+        .bg-gold {
+            background-color: #d4af37;
+        }
+
+        /* PDF / Print Optimization */
+        @media print {
+
+            /* Hide interactive elements */
+            nav,
+            button,
+            .no-print,
+            #contact form,
+            .scroll-indicator {
+                display: none !important;
+            }
+
+            /* Page setup for A4 Landscape - Full Page */
+            @page {
+                size: A4 landscape;
+                margin: 0.5cm;
+            }
+
+            html,
+            body {
+                width: 297mm;
+                height: 210mm;
+                background-color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            /* Ensure links are visible and clickable in PDF */
+            a:not(.pdf-header a) {
+                text-decoration: none !important;
+                color: #059669 !important;
+            }
+
+            a::after {
+                content: "" !important;
+            }
+
+            /* Make links clickable in PDF */
+            a[href] {
+                cursor: pointer !important;
+            }
+
+            /* Page breaks to fit in 5 pages - Landscape Format */
+            section#hero {
+                page-break-after: always;
+                break-after: page;
+                height: 200mm;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Keep hero background image in PDF */
+            section#hero .absolute.inset-0 {
+                display: block !important;
+            }
+
+            /* Ensure Hero content is centered in PDF */
+            section#hero .relative.z-10 {
+                text-align: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            section#hero .inline-block {
+                display: inline-block !important;
+            }
+
+            section#hero h1,
+            section#hero p {
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            section#hero .flex {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            /* PDF Header for Hero section */
+            .pdf-header {
+                display: flex !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 9999 !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 1rem 1.5rem !important;
+                background: transparent !important;
+            }
+
+            .pdf-header img {
+                height: 2.5rem !important;
+                width: auto !important;
+                filter: brightness(0) invert(1) !important;
+            }
+
+            .pdf-header a {
+                background-color: #15803d !important;
+                color: #ffffff !important;
+                padding: 0.75rem 1.5rem !important;
+                border-radius: 0.5rem !important;
+                font-size: 0.875rem !important;
+                font-weight: 600 !important;
+                text-decoration: none !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .pdf-header a,
+            .pdf-header a *,
+            .pdf-header a::before,
+            .pdf-header a::after {
+                color: #ffffff !important;
+            }
+
+            /* Navbar in print - hide completely */
+            nav {
+                display: none !important;
+            }
+
+            /* Hero - Keep all content visible as in the image */
+            /* Only hide PDF download button and scroll indicator */
+            section#hero button,
+            section#hero .pdf-download-btn,
+            section#hero .no-print {
+                display: none !important;
+            }
+
+            section#why {
+                page-break-after: always;
+                break-after: page;
+                height: auto;
+                min-height: 200mm;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            /* WhySection - Keep 2-column layout like web */
+            section#why .grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 2rem !important;
+                align-items: center !important;
+            }
+
+            section#why .max-w-7xl {
+                max-width: 100% !important;
+                padding: 0.5rem !important;
+            }
+
+            section#how {
+                page-break-after: always;
+                break-after: page;
+                height: auto;
+                min-height: 200mm;
+                padding-top: 0.5rem !important;
+                padding-bottom: 0.5rem !important;
+            }
+
+            /* HowSection - Keep 3-column layout like web */
+            section#how .grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 1.5rem !important;
+            }
+
+            section#what {
+                page-break-after: always;
+                break-after: page;
+                height: auto;
+                min-height: 200mm;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            /* WhatSection - Keep 3-column layout like web */
+            section#what .grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 1.5rem !important;
+            }
+
+            footer {
+                page-break-before: avoid;
+                break-before: avoid;
+                height: auto;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            footer .max-w-7xl {
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+
+            footer img {
+                height: 1.5rem !important;
+            }
+
+            footer .text-sm {
+                font-size: 0.7rem !important;
+                line-height: 1.2 !important;
+            }
+
+            footer .flex {
+                gap: 0.5rem !important;
+            }
+
+            footer a {
+                font-size: 0.75rem !important;
+                color: #10b981 !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+            }
+
+            /* Hero section links */
+            section#hero a {
+                text-decoration: none !important;
+                cursor: pointer !important;
+                display: inline-block !important;
+            }
+
+            /* Ensure all links are clickable in PDF */
+            a[href]:not([href="#"]):not([href=""]):not(.no-print) {
+                color: #059669 !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+            }
+
+            /* Prevent breaking inside elements */
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                page-break-after: avoid;
+                break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            img {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            /* Compact layout - Full page coverage */
+            .max-w-7xl {
+                max-width: 100% !important;
+                padding: 0.5rem !important;
+            }
+
+            /* Reduce spacing for better fit */
+            section {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            h1 {
+                font-size: 2.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            h2 {
+                font-size: 2rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            p {
+                font-size: 0.95rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            /* Grid adjustments */
+            .grid {
+                gap: 1rem !important;
+            }
+
+            /* HowSection - Balanced product cards for PDF */
+            section#how .grid>div {
+                padding: 1.5rem !important;
+                background-color: white !important;
+                border-radius: 1rem !important;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+                border: 1px solid #f3f4f6 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+
+            section#how h3 {
+                font-size: 1.25rem !important;
+                margin-bottom: 0.75rem !important;
+                font-weight: bold !important;
+                color: #111827 !important;
+            }
+
+            section#how p {
+                font-size: 0.8rem !important;
+                line-height: 1.5 !important;
+                margin-bottom: 1rem !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+                color: #4b5563 !important;
+            }
+
+            section#how .h-64 {
+                height: 12rem !important;
+                min-height: 12rem !important;
+                margin-bottom: 1rem !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: linear-gradient(to bottom, #f9fafb, white) !important;
+                border-radius: 1rem !important;
+                padding: 1rem !important;
+                border: 1px solid #f3f4f6 !important;
+            }
+
+            section#how img {
+                max-height: 10rem !important;
+                max-width: 100% !important;
+                object-fit: contain !important;
+            }
+
+            section#how a {
+                padding: 0.5rem 1.25rem !important;
+                font-size: 0.8rem !important;
+                margin-top: auto !important;
+                border: 2px solid #065f46 !important;
+                color: #065f46 !important;
+                font-weight: bold !important;
+                border-radius: 9999px !important;
+                text-decoration: none !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+                cursor: pointer !important;
+                background-color: transparent !important;
+                transition: none !important;
+            }
+
+            section#how a:hover {
+                background-color: #065f46 !important;
+                color: white !important;
+            }
+
+            section#how a svg {
+                display: inline-block !important;
+                width: 1rem !important;
+                height: 1rem !important;
+            }
+
+            /* HowSection header */
+            section#how .text-center {
+                text-align: center !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            section#how h2 {
+                font-size: 2rem !important;
+                margin-bottom: 0.75rem !important;
+                font-weight: bold !important;
+            }
+
+            section#how .text-xl {
+                font-size: 1.1rem !important;
+                color: #4b5563 !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            /* HowSection bottom features */
+            section#how .mt-24 {
+                margin-top: 1.5rem !important;
+                text-align: center !important;
+            }
+
+            section#how .inline-flex {
+                display: inline-flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 1rem !important;
+            }
+
+            section#how .inline-flex > div {
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.625rem !important;
+                background-color: white !important;
+                padding: 0.625rem 1.25rem !important;
+                border-radius: 9999px !important;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+                border: 1px solid #f3f4f6 !important;
+            }
+
+            section#how .text-sm {
+                font-size: 0.8rem !important;
+                font-weight: 500 !important;
+                color: #374151 !important;
+            }
+
+            section#how .animate-pulse {
+                display: block !important;
+                width: 0.625rem !important;
+                height: 0.625rem !important;
+                background-color: #10b981 !important;
+                border-radius: 9999px !important;
+            }
+
+            section#how .text-gray-500 {
+                font-size: 0.85rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            /* WhatSection - Beautiful cards for PDF */
+            section#what .grid>div {
+                background: linear-gradient(to bottom, white, #f9fafb) !important;
+                border-radius: 1rem !important;
+                padding: 1.5rem !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+                border: 1px solid #e5e7eb !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            section#what .grid>div h3 {
+                font-size: 1.25rem !important;
+                margin-bottom: 0.75rem !important;
+                font-weight: bold !important;
+                color: #111827 !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.75rem !important;
+            }
+
+            section#what .grid>div h3 span:first-child {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                border-radius: 9999px !important;
+                background-color: #dcfce7 !important;
+                color: #15803d !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                font-weight: bold !important;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            section#what .grid>div p {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+                color: #4b5563 !important;
+            }
+
+            section#what .h-64 {
+                height: 12rem !important;
+                min-height: 12rem !important;
+                margin-bottom: 1.5rem !important;
+                border-radius: 1rem !important;
+                overflow: hidden !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            section#what .h-64 img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+            section#what .absolute.inset-0 {
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2), transparent) !important;
+            }
+
+            section#what .absolute.inset-0 span {
+                color: white !important;
+                font-weight: bold !important;
+                font-size: 1.5rem !important;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+            }
+
+            section#what .absolute.inset-0 .flex span {
+                background-color: rgba(255, 255, 255, 0.25) !important;
+                backdrop-filter: blur(4px) !important;
+                color: white !important;
+                font-size: 0.75rem !important;
+                padding: 0.375rem 0.75rem !important;
+                border-radius: 0.375rem !important;
+                border: 1px solid rgba(255, 255, 255, 0.4) !important;
+                font-weight: bold !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+            }
+
+            /* WhatSection header */
+            section#what .text-center {
+                text-align: center !important;
+                margin-bottom: 2rem !important;
+            }
+
+            section#what h2 {
+                font-size: 2rem !important;
+                margin-bottom: 0.75rem !important;
+                font-weight: bold !important;
+            }
+
+            section#what .text-lg {
+                font-size: 1rem !important;
+                color: #6b7280 !important;
+            }
+
+            /* WhySection - Keep web layout in PDF */
+            section#why img {
+                max-height: none !important;
+                height: auto !important;
+                width: 100% !important;
+                object-fit: cover !important;
+                border-radius: 1rem !important;
+            }
+
+            /* Keep image container height similar to web */
+            section#why .relative.group img {
+                height: 500px !important;
+                max-height: 500px !important;
+            }
+
+            section#why .space-y-6 {
+                margin-top: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            section#why .space-y-6>*+* {
+                margin-top: 1.5rem !important;
+            }
+
+            section#why .bg-green-50 {
+                padding: 1.5rem !important;
+            }
+
+            /* Keep grid cards visible - already defined above */
+
+            /* Hide only decorative background circle in print */
+            section#why .absolute.bg-green-50.rounded-full {
+                display: none !important;
+            }
+
+            /* Keep the tooltip visible */
+            section#why .absolute.bg-green-900 {
+                display: block !important;
+                position: absolute !important;
+                bottom: 2rem !important;
+                right: -2rem !important;
+                background-color: #065f46 !important;
+                color: white !important;
+                padding: 1.5rem !important;
+                border-radius: 0.75rem !important;
+                max-width: 250px !important;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            /* Keep badge visible */
+            section#why .absolute.top-6.left-6 {
+                display: flex !important;
+                position: absolute !important;
+                top: 1.5rem !important;
+                left: 1.5rem !important;
+                background-color: rgba(255, 255, 255, 0.95) !important;
+                padding: 0.625rem 1.25rem !important;
+                border-radius: 9999px !important;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            /* Right column content styling */
+            section#why .flex.flex-col {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                height: 100% !important;
+            }
+
+            /* Prestij and Ekoloji cards */
+            section#why .grid.grid-cols-2 {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1rem !important;
+                margin-top: 2rem !important;
+            }
+
+            section#why .grid.grid-cols-2 > div {
+                padding: 1.5rem !important;
+                background-color: #f9fafb !important;
+                border-radius: 1rem !important;
+                border: 1px solid #f3f4f6 !important;
+            }
+
+            /* Hide animations in print */
+            .animate-pulse {
+                display: none !important;
+            }
+
+            /* Ensure colors print correctly */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+    <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>
